@@ -27,6 +27,10 @@ body {
     height: 100%;
   }
 
+  .loading {
+    @apply p-12 text-2xl rounded-lg bg-slate-800/70 border border-white/20 backdrop-blur-lg text-white;
+  }
+
   .chatList,
   .userInfo,
   .details {
