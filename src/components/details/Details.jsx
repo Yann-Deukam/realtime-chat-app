@@ -1,4 +1,11 @@
-import { ChevronDown, ChevronsUp, ChevronUp, Download } from "lucide-react";
+import {
+  Ban,
+  ChevronDown,
+  ChevronsUp,
+  ChevronUp,
+  Download,
+  LogOut,
+} from "lucide-react";
 import React from "react";
 
 const Details = () => {
@@ -27,7 +34,7 @@ const Details = () => {
             <span>Shared photos</span>
             <ChevronUp />
           </div>
-          <div className="photos h-64 overflow-y-auto">
+          <div className="photos h-52 overflow-y-auto">
             <div className="photoItem">
               <div className="photoDetails">
                 <img
@@ -116,7 +123,14 @@ const Details = () => {
             <ChevronDown />
           </div>
         </div>
-        <button>Block user</button>
+        <button className="flex justify-center items-center">
+          <Ban className="mr-2 w-5 h-5" />
+          Block user
+        </button>
+        <button className="logout flex justify-center items-center">
+          <LogOut className="mr-2 w-5 h-5" />
+          <span> logout</span>
+        </button>
       </div>
     </div>
   );

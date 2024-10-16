@@ -8,19 +8,7 @@ const Chat = () => {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
 
-  // useEffect(() => {
-  //   endRef.current?.scrollIntoView({ behavior: "smooth" });
-  // }, []);
-
   const endRef = useRef(null);
-
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  //   }, 0);
-  //   return () => clearTimeout(timeoutId);
-  // }, []);
-
   const handleEmoji = (e) => {
     setText((prev) => prev + e.native);
     console.log(e);
@@ -126,7 +114,7 @@ const Chat = () => {
             <span>10:30</span>
           </div>
         </div>
-        <div ref={endRef}></div>
+        <div ref={endRef} data-testid="end-of-chat-list"></div>
       </div>
       <div className="bottom mt-auto px-5 flex items-center justify-between border-t border-gray-300/20">
         <div className="icons flex items-center">
