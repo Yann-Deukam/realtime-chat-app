@@ -9,10 +9,19 @@ const Chat = () => {
   const [text, setText] = useState("");
 
   const endRef = useRef(null);
+
+  // Function to handle emoji selection
   const handleEmoji = (e) => {
     setText((prev) => prev + e.native);
     console.log(e);
   };
+
+  // Scroll to the last message when the component loads
+  // useEffect(() => {
+  //   if (endRef.current) {
+  //     endRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // }, [text]); // Assuming you have a state for messages
 
   return (
     <div className="flex-[2] chat flex flex-col border-x border-gray-300/20 h-full">
@@ -39,8 +48,8 @@ const Chat = () => {
       </div>
 
       {/* Center section with scrollable content */}
-      <div className="center px-5 flex flex-col gap-5 flex-1 overflow-y-auto">
-        {/* Scrollable content */}
+      <div className="center px-5 flex flex-col gap-5 h-full flex-1 overflow-y-auto">
+        {/* Messages */}
         <div className="message">
           <img src="./avatar.png" alt="avatar" />
           <div className="texts">
@@ -116,6 +125,8 @@ const Chat = () => {
         </div>
         <div ref={endRef} data-testid="end-of-chat-list"></div>
       </div>
+
+      {/* Bottom section with input and icons */}
       <div className="bottom mt-auto px-5 flex items-center justify-between border-t border-gray-300/20">
         <div className="icons flex items-center">
           <Image />

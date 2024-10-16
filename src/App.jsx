@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Chat from "./components/chat/Chat";
 import Details from "./components/details/Details";
 import List from "./components/list/List";
 import "./index.css";
 import Login from "./components/login/Login";
 import Notifications from "./components/notifications/Notifications";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./lib/firebase";
 
 function App() {
   const user = false;
+
+  useEffect(() => {
+    const unSub = onAuthStateChanged(auth, (user) => {
+      console.log(user);
+    });
+
+    return () => {
+      unSub();
+    };
+  }, []);
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="container w-[180vh] h-[90vh] bg-slate-800/70 border border-white/20 backdrop-blur-lg mt-10 rounded-lg text-white overflow-hidden">
