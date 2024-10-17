@@ -129,10 +129,19 @@ body {
           @apply w-full h-[300px] rounded-md object-cover;
         }
       }
+
+      p {
+        @apply bg-purple-700 text-sm backdrop-blur-md text-white px-5 py-3 rounded-md;
+      }
+    }
+
+    &.other {
+      @apply mr-auto items-start;
     }
 
     img {
-      @apply w-[30px] h-[30px] rounded-s-full object-cover;
+      /* @apply w-[30px] h-[30px] rounded-s-full object-cover; */
+      @apply w-full h-[300px] rounded-md object-cover;
     }
 
     .texts {

@@ -7,6 +7,7 @@ import {
   LogOut,
 } from "lucide-react";
 import React from "react";
+import { auth } from "../../lib/firebase";
 
 const Details = () => {
   return (
@@ -127,7 +128,10 @@ const Details = () => {
           <Ban className="mr-2 w-5 h-5" />
           Block user
         </button>
-        <button className="logout flex justify-center items-center">
+        <button
+          className="logout flex justify-center items-center"
+          onClick={() => auth.signOut()}
+        >
           <LogOut className="mr-2 w-5 h-5" />
           <span> logout</span>
         </button>
