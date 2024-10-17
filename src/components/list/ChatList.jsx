@@ -9,6 +9,7 @@ import { useChatStore } from "../../lib/chatStore";
 const ChatList = () => {
   const [addMode, setAddmode] = useState(false);
   const [chats, setChats] = useState([]);
+  const [input, setInput] = useState("");
 
   const { currentUser } = useUserStore();
   const { chatId, changeChat } = useChatStore();
@@ -63,6 +64,10 @@ const ChatList = () => {
     }
   };
 
+  const filteredChats = chats.filter((c) =>
+    c.user.username.toLowerCase().includes(input.toLowerCase())
+  );
+
   return (
     <div className="chatList">
       <div className="search flex items-center gap-2 mb-4">
@@ -72,6 +77,7 @@ const ChatList = () => {
             type="text"
             placeholder="Search"
             className="bg-transparent mx-2 outline-none"
+            onChange={(e) => setInput(e.target.value)}
           />
         </div>
         {addMode ? (
@@ -87,7 +93,7 @@ const ChatList = () => {
         )}
       </div>
       <div className="flex-1 h-full overflow-y-auto max-h-full">
-        {chats.map((chat) => (
+        {filteredChats.map((chat) => (
           <div
             className="item"
             key={chat.chatId}
@@ -98,9 +104,20 @@ const ChatList = () => {
               backgroundColor: chat?.isSeen ? "transparent" : "rgb(126 34 206)",
             }}
           >
-            <img src={chat.user.avatar || "./avatar.png"} alt="avatar" />
+            <img
+              src={
+                chat.user.blocked.includes(currentUser.id)
+                  ? "./avatar.png"
+                  : chat.user.avatar || "./avatar.png"
+              }
+              alt="avatar"
+            />
             <div className="texts">
-              <span>{chat.user.username}</span>
+              <span>
+                {chat.user.blocked.includes(currentUser.id)
+                  ? "user"
+                  : chat.user.username}
+              </span>
               <p>{chat.lastMessage}</p>
             </div>
           </div>

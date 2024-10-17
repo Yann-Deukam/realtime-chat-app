@@ -104,6 +104,23 @@ body {
 
   .bottom input {
     @apply bg-slate-900/80 m-6 px-5 py-3 rounded-md border-none outline-none text-white flex-1;
+
+    &:disabled {
+      @apply hidden;
+    }
+  }
+
+  .bottom button {
+    &:disabled {
+      @apply hidden;
+    }
+  }
+
+  .bottom .emoji,
+  .bottom .icons {
+    &:disabled {
+      @apply hidden;
+    }
   }
 
   .bottom .icons {

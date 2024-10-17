@@ -24,7 +24,8 @@ const Chat = () => {
     url: "",
   });
 
-  const { chatId, user } = useChatStore();
+  const { chatId, user, isCurrentUserBlocked, isReceiverBlocked } =
+    useChatStore();
   const { currentUser } = useUserStore();
 
   const endRef = useRef(null);
@@ -174,15 +175,13 @@ const Chat = () => {
       <div className="top p-3 flex items-center justify-between border-b border-b-gray-300/20">
         <div className="user flex items-center gap-5">
           <img
-            src="./avatar.png"
+            src={user?.avatar || "./avatar.png"}
             alt="avatar"
             className="w-[60px] h-[60px] rounded-full object-cover "
           />
           <div className="texts flex flex-col gap-1">
-            <span className="font-bold">Jane Doe</span>
-            <p className="text-sm -mt-1 text-gray-300">
-              Lorem ipsum dolor sit amet.
-            </p>
+            <span className="font-bold">{user?.username} </span>
+            <p className="text-sm -mt-1 text-gray-300">{user?.email}</p>
           </div>
         </div>
         <div className="icons flex items-center gap-5">
@@ -223,36 +222,42 @@ const Chat = () => {
 
       {/* Bottom section with input and icons */}
       <div className="bottom mt-auto px-5 flex items-center justify-between border-t border-gray-300/20">
-        <div className="icons flex items-center">
-          <label htmlFor="file">
-            <Image className="cursor-pointer" />
-          </label>
-          <input
-            type="file"
-            id="file"
-            className="hidden"
-            onChange={handleImg}
-          />
-          <Camera className="cursor-pointer" />
-          <Mic className="cursor-pointer" />
-        </div>
+        {!isCurrentUserBlocked && !isReceiverBlocked && (
+          <>
+            <label htmlFor="file">
+              <Image className="cursor-pointer" />
+            </label>
+            <input
+              type="file"
+              id="file"
+              className="hidden"
+              onChange={handleImg}
+            />
+            <Camera className="cursor-pointer" />
+            <Mic className="cursor-pointer" />
+          </>
+        )}
         <input
           type="text"
           placeholder="Type a message..."
           value={text}
           onChange={(e) => setText(e.target.value)}
+          disabled={isCurrentUserBlocked || isReceiverBlocked}
         />
-        <div className="relative -ml-5 m-5 emoji w-[20px] h-[20px] cursor-pointer">
-          <Laugh onClick={() => setOpen((prev) => !prev)} />
-          {open && (
-            <div className="absolute bottom-full left-0 mb-5">
-              <Picker data={data} onEmojiSelect={handleEmoji} />
-            </div>
-          )}
-        </div>
+        {!isCurrentUserBlocked && !isReceiverBlocked && (
+          <div className="relative -ml-5 m-5 emoji w-[20px] h-[20px] cursor-pointer">
+            <Laugh onClick={() => setOpen((prev) => !prev)} className="emoji" />
+            {open && (
+              <div className="absolute bottom-full left-0 mb-5">
+                <Picker data={data} onEmojiSelect={handleEmoji} />
+              </div>
+            )}
+          </div>
+        )}
         <button
           className="sendButton px-4 py-3 rounded-lg bg-slate-900 hover:bg-slate-950 transition-all ease-in-out duration-200 text-white"
           onClick={handleSend}
+          disabled={isCurrentUserBlocked || isReceiverBlocked}
         >
           Send
         </button>
